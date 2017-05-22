@@ -72,6 +72,7 @@ public class UsersController {
         Viewing viewing = viewingRepository.findByUserIdAndEpisodeId(userId, episodeId);
 
         if (isNull(viewing)) {
+            // create a new viewing
             viewing = new Viewing();
             Episode episode = episodeRepository.findOne(episodeId);
 
@@ -81,7 +82,11 @@ public class UsersController {
             viewing.setUpdatedAt(data.getUpdatedAt());
             viewing.setTimecode(data.getTimecode());
             viewingRepository.save(viewing);
+        } else {
+            // update relevant fields
+            viewing.setUpdatedAt(data.getUpdatedAt());
+            viewing.setTimecode(data.getTimecode());
+            viewingRepository.save(viewing);
         }
-
     }
 }

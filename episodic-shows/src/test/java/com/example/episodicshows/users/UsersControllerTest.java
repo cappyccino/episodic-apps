@@ -194,7 +194,9 @@ public class UsersControllerTest {
 
     private Viewing createAndSaveViewing(Long userId, Long episodeId) {
         Viewing viewing = new Viewing();
-        viewing.setShowId(24L);
+        Show show = createAndSaveShow("Foobar");
+
+        viewing.setShowId(show.getId());
         viewing.setTimecode(99);
         viewing.setUpdatedAt(new Date());
         viewing.setUserId(userId);
