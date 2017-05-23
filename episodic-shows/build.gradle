@@ -33,6 +33,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile("org.springframework.boot:spring-boot-starter-amqp")
+	compile("org.springframework.amqp:spring-rabbit-junit:1.7.2.RELEASE")
 	compile group: 'com.google.code.gson', name: 'gson', version: '1.7.2'
 	compile "org.flywaydb:flyway-core:4.2.0"
 	runtime('org.springframework.boot:spring-boot-devtools')

@@ -1,5 +1,6 @@
 package com.example.episodicshows.shows;
 
+import com.example.episodicshows.TestBase;
 import com.example.episodicshows.episodes.Episode;
 import com.example.episodicshows.episodes.EpisodeRepository;
 import com.google.gson.JsonObject;
@@ -28,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
-public class ShowsControllerTest {
+public class ShowsControllerTest extends TestBase {
 
     @Autowired
     MockMvc mockMvc;
