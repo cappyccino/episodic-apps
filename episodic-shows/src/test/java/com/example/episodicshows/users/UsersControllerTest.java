@@ -7,6 +7,7 @@ import com.example.episodicshows.shows.Show;
 import com.example.episodicshows.shows.ShowRepository;
 import com.example.episodicshows.viewings.Viewing;
 import com.example.episodicshows.viewings.ViewingRepository;
+import com.example.episodicshows.viewings.ViewingService;
 import com.example.episodicshows.viewings.ViewingWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
@@ -53,6 +54,9 @@ public class UsersControllerTest extends TestBase {
     @Autowired
     ViewingRepository viewingRepository;
 
+    @Autowired
+    ViewingService viewingService;
+
     @Test
     @Transactional
     @Rollback
@@ -68,7 +72,6 @@ public class UsersControllerTest extends TestBase {
                 .andExpect(jsonPath("$[0].id", notNullValue()))
                 .andExpect(jsonPath("$[0].email", equalTo(user.getEmail())));
     }
-
 
     @Test
     @Transactional

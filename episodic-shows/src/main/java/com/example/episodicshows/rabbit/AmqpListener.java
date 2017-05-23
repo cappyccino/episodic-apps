@@ -11,11 +11,10 @@ import org.springframework.messaging.handler.annotation.support.DefaultMessageHa
 @Configuration
 public class AmqpListener implements RabbitListenerConfigurer {
 
-    @RabbitListener(queues = "my-queue")
-    public void receiveMessage(final Message message) {
-        System.out.println("************************************************");
-        System.out.println(message.toString());
-        System.out.println("************************************************");
+    @RabbitListener(queues = "episodic-progress")
+    public void receiveMessage(final ProgressMessage progressMessage) {
+        progressMessage.getEpisodeId();
+
     }
 
 //    @RabbitListener(queues = "my-queue")
