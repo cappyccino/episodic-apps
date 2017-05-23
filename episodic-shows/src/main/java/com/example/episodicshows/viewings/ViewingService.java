@@ -4,6 +4,7 @@ import com.example.episodicshows.episodes.Episode;
 import com.example.episodicshows.episodes.EpisodeRepository;
 import com.example.episodicshows.shows.Show;
 import com.example.episodicshows.shows.ShowRepository;
+import com.example.episodicshows.users.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,11 +18,14 @@ public class ViewingService {
     private final ViewingRepository viewingRepository;
     private final EpisodeRepository episodeRepository;
     private final ShowRepository showRepository;
+    private final UserRepository userRepository;
 
-    public ViewingService(ViewingRepository viewingRepository, EpisodeRepository episodeRepository, ShowRepository showRepository) {
+    public ViewingService(ViewingRepository viewingRepository, EpisodeRepository episodeRepository, ShowRepository showRepository, UserRepository userRepository) {
+        this.userRepository = userRepository;
         assert viewingRepository != null
                 && episodeRepository != null
-                && showRepository != null;
+                && showRepository != null
+                && userRepository != null;
 
         this.viewingRepository = viewingRepository;
         this.episodeRepository = episodeRepository;
@@ -43,6 +47,16 @@ public class ViewingService {
 
     public void createOrUpdateViewing(Long userId, ViewingWrapper viewingData) {
         Long episodeId = viewingData.getEpisodeId();
+
+        if (invalidUserId(userId)) {
+            System.out.println("***************** Invalid userId!");
+            return;
+        }
+        if (invalidEpisodeId(episodeId)) {
+            System.out.println("***************** Invalid episodeId!");
+            return;
+        }
+
         Viewing viewing = viewingRepository.findByUserIdAndEpisodeId(userId, episodeId);
 
         if (isNull(viewing)) {
@@ -50,6 +64,14 @@ public class ViewingService {
         } else {
             updateViewing(viewingData, viewing);
         }
+    }
+
+    private boolean invalidEpisodeId(Long episodeId) {
+        return episodeRepository.findOne(episodeId) == null;
+    }
+
+    private boolean invalidUserId(Long userId) {
+        return userRepository.findOne(userId) == null;
     }
 
     private void updateViewing(ViewingWrapper data, Viewing viewing) {
